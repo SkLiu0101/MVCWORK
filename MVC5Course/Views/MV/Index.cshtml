@@ -1,0 +1,68 @@
+﻿@model IEnumerable<MVC5Course.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.pageTitle</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th></th>
+        </tr>
+        @{ 
+            var datas = Model.ToArray();
+            var i = 0;
+        }
+    @foreach (var item in Model)
+    {
+        @Html.HiddenFor(modelItem => datas[i].ProductId)
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => datas[i].ProductName)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => datas[i].Price)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => datas[i].Active)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => datas[i].Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+            </td>
+        </tr>
+        i++;
+    }
+        
+
+</table>
+<input type="submit" value="批次更新" />
+        }
